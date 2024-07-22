@@ -124,7 +124,7 @@ async fn bulk_insert(users: HashSet<UserStat>, pool: &PgPool) -> Result<()> {
     for user in users {
         let query = sqlx::query(
             r#"
-            Insert Into user_stats (email, name, gender, created_at, last_visited_at, last_watched_at, recent_watched, viewed_but_not_started, started_but_not_finished, last_email_notification, last_in_app_notification, last_sms_notification)
+            Insert Into user_stats (email, name,  created_at, last_visited_at, last_watched_at, recent_watched, viewed_but_not_started, started_but_not_finished,finished, last_email_notification, last_in_app_notification, last_sms_notification)
             Values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
             "#
         )
