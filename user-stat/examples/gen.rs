@@ -13,7 +13,9 @@ use sqlx::{Executor, PgPool};
 async fn main() -> Result<()> {
     let pool = PgPool::connect("postgres://root:root@localhost/stats").await?;
     for i in 1..=500 {
-        let users = (0..10).map(|_| Faker.fake::<UserStat>()).collect::<HashSet<UserStat>>();
+        let users = (0..10)
+            .map(|_| Faker.fake::<UserStat>())
+            .collect::<HashSet<UserStat>>();
         let start = Instant::now();
         raw_insert(users, &pool).await?;
         println!("Batch {} inserted in {:.2?}", i, start.elapsed())
@@ -33,8 +35,8 @@ enum Gender {
 }
 struct UniqueEmail;
 const ALPHABET: [char; 36] = [
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 impl Dummy<UniqueEmail> for String {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_config: &UniqueEmail, rng: &mut R) -> String {
@@ -57,7 +59,9 @@ impl Dummy<IntList> for Vec<i32> {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(v: &IntList, rng: &mut R) -> Self {
         let (max, start, len) = (v.0, v.1, v.2);
         let size = rng.gen_range(0..max);
-        (0..size).map(|_| rng.gen_range(start..start + len)).collect()
+        (0..size)
+            .map(|_| rng.gen_range(start..start + len))
+            .collect()
     }
 }
 

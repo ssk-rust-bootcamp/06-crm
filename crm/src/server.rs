@@ -9,12 +9,18 @@ use tonic::{async_trait, transport::Server, Response, Status};
 pub struct UserServer {}
 #[async_trait]
 impl UserService for UserServer {
-    async fn get_user(&self, request: tonic::Request<GetUserRequest>) -> Result<Response<User>, Status> {
+    async fn get_user(
+        &self,
+        request: tonic::Request<GetUserRequest>,
+    ) -> Result<Response<User>, Status> {
         let input = request.into_inner();
         println!("get_user: {:?}", input);
         Ok(Response::new(User::default()))
     }
-    async fn create_user(&self, request: tonic::Request<CreateUserRequest>) -> Result<Response<User>, Status> {
+    async fn create_user(
+        &self,
+        request: tonic::Request<CreateUserRequest>,
+    ) -> Result<Response<User>, Status> {
         let input = request.into_inner();
         println!("create_user: {:?}", input);
         Ok(Response::new(User::default()))
@@ -28,6 +34,9 @@ async fn main() -> Result<()> {
 
     println!("UserService listening on: {}", addr);
 
-    Server::builder().add_service(UserServiceServer::new(svc)).serve(addr).await?;
+    Server::builder()
+        .add_service(UserServiceServer::new(svc))
+        .serve(addr)
+        .await?;
     Ok(())
 }
