@@ -24,7 +24,7 @@ jobs:
         image: postgres:14.5
         env:
           POSTGRES_PASSWORD: root
-          POSTGRES_USERNAME: root
+          POSTGRES_USER: root
         ports:
           - 5432:5432
         # Set health checks to wait until postgres has started
