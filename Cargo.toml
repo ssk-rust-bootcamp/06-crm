@@ -21,4 +21,10 @@ sqlx = { version = "0.8.0", features = [
 ] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
-serde_yaml="0.9.33"
+serde_yaml = "0.9.33"
+derive_builder = "0.20.0"
+futures = "0.3.30"
+itertools = "0.13.0"
+proto-builder-trait = "0.6.1"
+rand = "0.8.5"
+tokio-stream = "0.1.15"
