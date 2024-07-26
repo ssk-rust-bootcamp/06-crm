@@ -1,6 +1,6 @@
 use std::{pin::Pin, sync::Arc};
 
-use config::AppConfig;
+pub use config::AppConfig;
 use futures::Stream;
 use pb::{notification_server::Notification, send_request::Msg, SendRequest, SendResponse};
 use tokio::sync::mpsc;

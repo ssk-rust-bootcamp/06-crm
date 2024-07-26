@@ -17,8 +17,8 @@
 # fn_params_layout = "Tall"
 # chain_width = 80
 # chain_split = "Vertical"
-# reorder_imports = true
-# reorder_modules = true
+reorder_imports = true
+reorder_modules = true
 # format_strings = true
 # format_macro_matchers = true
 # format_macro_bodies = true
