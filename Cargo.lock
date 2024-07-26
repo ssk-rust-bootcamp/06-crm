@@ -314,12 +314,24 @@ name = "crm"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "chrono",
+ "crm-metadata",
+ "crm-send",
+ "derive_builder",
+ "futures",
  "prost 0.13.1",
- "prost-build 0.13.1",
  "prost-types 0.13.1",
+ "proto-builder-trait",
+ "serde",
+ "serde_yaml",
  "tokio",
+ "tokio-stream",
  "tonic",
  "tonic-build",
+ "tracing",
+ "tracing-subscriber",
+ "user-stat",
+ "uuid",
 ]
 
 [[package]]
@@ -354,6 +366,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "chrono",
+ "crm-metadata",
  "crm-send",
  "derive_builder",
  "fake",
@@ -1454,27 +1467,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "prost-build"
-version = "0.13.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5bb182580f71dd070f88d01ce3de9f4da5021db7115d2e1c3605a754153b77c1"
-dependencies = [
- "bytes",
- "heck 0.5.0",
- "itertools 0.13.0",
- "log",
- "multimap",
- "once_cell",
- "petgraph",
- "prettyplease",
- "prost 0.13.1",
- "prost-types 0.13.1",
- "regex",
- "syn 2.0.72",
- "tempfile",
-]
-
-[[package]]
 name = "prost-derive"
 version = "0.12.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1524,7 +1516,7 @@ version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a57cad9aa9b228e43eb2e649b95319a4cefb89743d04234470112bb97105cc04"
 dependencies = [
- "prost-build 0.12.6",
+ "prost-build",
  "tonic-build",
 ]
 
@@ -2354,7 +2346,7 @@ checksum = "be4ef6dd70a610078cb4e338a0f79d06bc759ff1b22d2120c2ff02ae264ba9c2"
 dependencies = [
  "prettyplease",
  "proc-macro2",
- "prost-build 0.12.6",
+ "prost-build",
  "quote",
  "syn 2.0.72",
 ]
@@ -2584,9 +2576,9 @@ checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
 
 [[package]]
 name = "version_check"
-version = "0.9.4"
+version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
+checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
 
 [[package]]
 name = "want"

@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 use chrono::{DateTime, Days, Utc};
 use fake::{
     faker::{chrono::en::DateTimeBetween, lorem::zh_cn::Sentence, name::zh_cn::Name},
@@ -6,12 +8,13 @@ use fake::{
 use prost_types::Timestamp;
 use rand::Rng;
 use tokio_stream::wrappers::ReceiverStream;
+use tracing::info;
 
 use crate::{
     pb::{Content, MaterializeRequest, Publisher},
     MetadataService, ResponseStream, ServiceResult,
 };
-use futures::{Stream, StreamExt};
+use futures::{stream, Stream, StreamExt};
 use tokio::sync::mpsc;
 use tonic::{Response, Status};
 
@@ -37,6 +40,7 @@ impl MetadataService {
 impl Content {
     pub fn materialize(id: u32) -> Self {
         let mut rng = rand::thread_rng();
+        info!("Materialize content with id: {}", id);
         Content {
             id,
             name: Name().fake(),
@@ -53,7 +57,27 @@ impl Content {
             dislikes: rng.gen_range(234..1000),
         }
     }
+
+    pub fn to_body(&self) -> String {
+        format!("Content: {:?}", self)
+    }
 }
+
+pub struct Tpl<'a>(pub &'a [Content]);
+
+impl<'a> Tpl<'a> {
+    pub fn to_body(&self) -> String {
+        format!("Tpl: {:?}", self.0)
+    }
+}
+
+impl MaterializeRequest {
+    pub fn new_with_ids(ids: &[u32]) -> impl Stream<Item = Self> {
+        let reqs: HashSet<_> = ids.iter().map(|id| Self { id: *id }).collect();
+        stream::iter(reqs)
+    }
+}
+
 fn before(days: u64) -> DateTime<Utc> {
     Utc::now().checked_sub_days(Days::new(days)).unwrap()
 }
