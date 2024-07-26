@@ -1,5 +1,5 @@
 use proto_builder_trait::tonic::BuilderAttributes;
-use std::fs;
+use std::{fs, process::Command};
 
 use anyhow::Result;
 fn main() -> Result<()> {
@@ -49,5 +49,9 @@ fn main() -> Result<()> {
             &["../protos"],
         )
         .unwrap();
+    Command::new("cargo")
+        .arg("fmt")
+        .spawn()
+        .expect("executing cargo fmt failed");
     Ok(())
 }

@@ -1,5 +1,5 @@
 use anyhow::Result;
-use std::fs;
+use std::{fs, process::Command};
 
 fn main() -> Result<()> {
     fs::create_dir_all("src/pb")?;
@@ -15,5 +15,9 @@ fn main() -> Result<()> {
         )
         .unwrap();
 
+    Command::new("cargo")
+        .arg("fmt")
+        .spawn()
+        .expect("executing cargo fmt failed");
     Ok(())
 }
