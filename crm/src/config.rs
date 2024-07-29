@@ -7,6 +7,11 @@ pub struct AppConfig {
     pub server: ServerConfig,
     pub auth: AuthConfig,
 }
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TlsConfig {
+    pub cert: String,
+    pub key: String,
+}
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AuthConfig {
@@ -20,6 +25,7 @@ pub struct ServerConfig {
     pub metadata: String,
     pub user_stats: String,
     pub notification: String,
+    pub tls: Option<TlsConfig>,
 }
 
 impl AppConfig {

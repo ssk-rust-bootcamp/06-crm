@@ -69,6 +69,7 @@ impl Deref for UserStatsService {
 #[cfg(feature = "test_utils")]
 pub mod test_utils {
     use anyhow::Result;
+    use chrono::TimeZone;
     use chrono::Utc;
     use prost_types::Timestamp;
     use sqlx::Executor;
@@ -128,7 +129,9 @@ pub mod test_utils {
     }
 
     pub fn to_ts(days: i64) -> Timestamp {
-        let dt = Utc::now()
+        let dt = Utc
+            .with_ymd_and_hms(2024, 5, 7, 0, 0, 0)
+            .unwrap()
             .checked_add_signed(chrono::Duration::days(days))
             .unwrap();
         Timestamp {
